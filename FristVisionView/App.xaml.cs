@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace FristVisionView;
+namespace FirstVisionView;
 
 /// <summary>
 /// Interaction logic for App.xaml
