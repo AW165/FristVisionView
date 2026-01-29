@@ -162,18 +162,20 @@
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="19*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--工具栏-->
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="52" Width="1680" Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="3" Orientation="Horizontal" Background="#FFECE8E8">
-            <Button Name="File" Content="文件" Width="75" Height="23" Margin="10,10,0,10" Click="Button_Click"  BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16"/>
-            <Button Name="ToolBox" Content="工具" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16"/>
-            <Button Name="View" Content="视图" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16"/>
+            <Button Name="File" Content="文件" Width="75" Height="23" Margin="10,10,0,10" Click="Button_Click"  BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button Name="ToolBox" Content="工具" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button Name="View" Content="视图" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
         <!--左侧面板-->
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Background="#FFFFFFFF" >
-            <Border BorderBrush="Black" Height="30"/>
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Background="#FFFFFF" >
+            
+                
+
         </StackPanel>
         <!--图片区域-->
         <Grid Grid.Column="1" Grid.Row="1" >
@@ -189,18 +191,19 @@
                 <!--图像显示调整栏-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="15"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
 
 
                 </Grid.ColumnDefinitions>
                 <!--图层选择列表-->
-                <Border Grid.ColumnSpan="7"  Background="#FFFFFF"  BorderBrush="#E8E8E8"  >
+                <Border Grid.ColumnSpan="7"  Background="#FFFFFF"  BorderBrush="#FFFFFF" >
                     <!-- 轻微垂直偏移 -->
                     <Border.Effect>
-                        <DropShadowEffect ShadowDepth="2"       
+                        <DropShadowEffect ShadowDepth="4"       
                             BlurRadius="8"
                             Color="#20000000"
                             Opacity="0.3"/>
@@ -208,9 +211,9 @@
                 </Border>
                 <ComboBox   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="200" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
                 <!--放大-->
-                <Button Grid.Column="2" Content="+" FontSize="25" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
+                <Button Grid.Column="2" Content="➕" FontSize="25" Foreground="Gray" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
                 <!--缩小-->
-                <Button Grid.Column="3" Content="-" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
+                <Button Grid.Column="4" Content="➖" FontSize="25" Foreground="Gray" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
             </Grid>
 
         </Grid>
