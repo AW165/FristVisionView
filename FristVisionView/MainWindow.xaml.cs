@@ -26,5 +26,24 @@ public partial class MainWindow : Window
     {
         FilePopup.IsOpen = true;
     }
-    
+
+    private void imgDisplay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+
+    }
+
+    private void imgDisplay_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    {
+
+    }
+
+    private void imgDisplay_MouseMove(object sender, MouseEventArgs e)
+    {
+
+    }
+
+    private void imgDisplay_MouseWheel(object sender, MouseWheelEventArgs e)
+    {
+
+    }
 }

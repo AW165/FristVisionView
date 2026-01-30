@@ -74,7 +74,7 @@
                                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                     Padding="{TemplateBinding Padding}"
                                     VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0,0,0,2" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Border>
                             
                             
@@ -166,59 +166,118 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--工具栏-->
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="52" Width="1680" Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="3" Orientation="Horizontal" Background="#FFECE8E8">
-            <Button Name="File" Content="文件" Width="75" Height="23" Margin="10,10,0,10" Click="Button_Click"  BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
-            <Button Name="ToolBox" Content="工具" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
-            <Button Name="View" Content="视图" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="52" Width="1680" Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="10" Orientation="Horizontal" Background="#FFECE8E8">
+            <Button x:Name="File" Content="文件" Width="75" Height="23" Margin="10,10,0,10" Click="Button_Click"  BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="ToolBox" Content="工具" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="View" Content="视图" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
         <!--左侧面板-->
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Background="#FFFFFF" >
-            
-                
-
-        </StackPanel>
-        <!--图片区域-->
-        <Grid Grid.Column="1" Grid.Row="1" >
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-
+                <ColumnDefinition Width="70"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" Background="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="800" CornerRadius="20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1"
+                                    BlurRadius="10"  
+                                       Color="#20000000"
+                                      Opacity="0.5">
+                    </DropShadowEffect>
+                </Border.Effect>
+
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2" Background="Transparent" >
+                    <Button Content="🏠" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}"/>
+                    <Button  Content="🧾" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+
+
+
+        </Grid>
+       
+        <!--右侧区域-->
+        <Grid Grid.Column="1" Grid.Row="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="19*"/>
             </Grid.RowDefinitions>
-            <Grid>
-                <!--图像显示调整栏-->
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-
-
-                </Grid.ColumnDefinitions>
+            <!--图像显示调整栏的底色-->
+            <Border Background="#FFFFFF"  BorderBrush="#FFFFFF" HorizontalAlignment="Stretch" >
+                <!-- 轻微垂直偏移 -->
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1"       
+                    BlurRadius="10"
+                    Color="#20000000"
+                    Opacity="0.3"/>
+                </Border.Effect>
+            </Border>
+            <!--图像栏布局-->
                 <!--图层选择列表-->
-                <Border Grid.ColumnSpan="7"  Background="#FFFFFF"  BorderBrush="#FFFFFF" >
-                    <!-- 轻微垂直偏移 -->
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="4"       
-                            BlurRadius="8"
-                            Color="#20000000"
-                            Opacity="0.3"/>
-                    </Border.Effect>
-                </Border>
-                <ComboBox   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="200" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,0">
+                <ComboBox x:Name="LayerSelection"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="200" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
+                <ComboBox x:Name="CameraSelection"   Margin="30,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
                 <!--放大-->
-                <Button Grid.Column="2" Content="➕" FontSize="25" Foreground="Gray" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
+                <Button x:Name="Enlarge" Margin="30,0,0,0" Content="➕" FontSize="25" Foreground="Gray" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
                 <!--缩小-->
-                <Button Grid.Column="4" Content="➖" FontSize="25" Foreground="Gray" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
-            </Grid>
-
+                <Button x:Name="Reduce" Margin="10,0,0,0" Content="➖" FontSize="25" Foreground="Gray" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="R:" Grid.Column="1" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label x:Name="RValue" Content="" Grid.Column="2"  Margin="10,0,15,0" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label Content="G:"  Grid.Column="3" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label x:Name="GValue" Content=""  Grid.Column="4" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label Content="B:" Grid.Column="5" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label x:Name="BValue" Content=""  Grid.Column="6" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label Content="H:" Grid.Column="7" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label x:Name="HValue" Content="" Grid.Column="8" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label Content="S:" Grid.Column="9" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label x:Name="SValue" Content=""  Grid.Column="10" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label Content="V:" Grid.Column="11" HorizontalAlignment="Center" FontSize="25"/>
+                    <Label x:Name="VValue" Content=""  Grid.Column="12" HorizontalAlignment="Center" FontSize="25"/>
+                </Grid>
+                
+            </StackPanel>
+            <!--图像显示窗口-->
+            <Image x:Name="imgDisplay" Grid.Row="1" Grid.Column="0" Source="/Pictrue.jpg"
+                   Stretch="None"
+                   RenderOptions.BitmapScalingMode="NearestNeighbor" 
+                   MouseLeftButtonDown="imgDisplay_MouseLeftButtonDown"
+                   MouseLeftButtonUp="imgDisplay_MouseLeftButtonUp" 
+                   MouseMove="imgDisplay_MouseMove" 
+                   MouseWheel="imgDisplay_MouseWheel">
+                <!--图像操作：旋转/平移/缩放-->
+                <Image.RenderTransform>
+                    <!--缩放组合-->
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                        <TranslateTransform X="0" Y="0"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--ROI区域-->
+            <Canvas Grid.Row="1" Grid.Column="0" x:Name="ROI" Background="Transparent" IsHitTestVisible="True" RenderTransform="{Binding ElementName=imgDisplay,Path=RenderTransform}"/>
         </Grid>
         <!--文件菜单-->
-        <Popup Name="FilePopup"
+        <Popup x:Name="FilePopup"
        PlacementTarget="{Binding ElementName=File}"
        Placement="Bottom"
        AllowsTransparency="True"
