@@ -25,6 +25,7 @@ public partial class MainWindow : Window
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         FilePopup.IsOpen = true;
+        
     }
 
     private void imgDisplay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -45,5 +46,15 @@ public partial class MainWindow : Window
     private void imgDisplay_MouseWheel(object sender, MouseWheelEventArgs e)
     {
 
+    }
+
+    private void LayerSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void ToggleButton_Click(object sender, RoutedEventArgs e)
+    {
+        
     }
 }

@@ -63,8 +63,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                      
-                            <Border x:Name="Board"
+
+                        <Border x:Name="Board"
                                     Background="{TemplateBinding Background}"  
                                     BorderBrush="{TemplateBinding BorderBrush}"  
                                     BorderThickness="{TemplateBinding BorderThickness}"  
@@ -74,15 +74,15 @@
                                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                     Padding="{TemplateBinding Padding}"
                                     VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0,0,0,2" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="-0.5,0,0,2" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Border>
-                            
-                            
-                            
-                    
+
+
+
+
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                
+
                                 <Setter TargetName="Board" Property="Background" Value="#FF9A9191"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
@@ -92,6 +92,13 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <!--圆角Border-->
+        <Style x:Key="PopupBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="#E5E5E5"/>
+            <Setter Property="BorderBrush" Value="#D0D0D0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
         </Style>
         <!--普通下拉列表圆角版-->
         <Style x:Key="ComboboxStyle" TargetType="ComboBox">
@@ -106,52 +113,56 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
-                        <Grid SnapsToDevicePixels="True">
-
-                            <Border  Background="{TemplateBinding Background}" CornerRadius="{Binding Path=(local:ComboboxHelp.CornerRadius),RelativeSource={RelativeSource AncestorType=ComboBox}}">
+                        <Grid >
+                            
+                   
+                        <Border  Background="{TemplateBinding Background}" CornerRadius="{Binding Path=(local:ComboboxHelp.CornerRadius),RelativeSource={RelativeSource AncestorType=ComboBox}}">
                                 <ToggleButton x:Name="ToggleButton" 
+                                                IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                                 Background="{TemplateBinding Background}"
                                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                    <ToggleButton.Template>
-                                        <ControlTemplate TargetType="ToggleButton">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="5*"/>
-                                                    <ColumnDefinition Width="1*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Border  Background="Transparent" CornerRadius="{Binding Path=(local:ComboboxHelp.CornerRadius),RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                <ContentControl HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                                            </Grid>
+                                                BorderThickness="{TemplateBinding BorderThickness}" >
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.ColumnSpan="2" Background="Transparent" CornerRadius="{Binding Path=(local:ComboboxHelp.CornerRadius),RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                            <ContentPresenter Grid.Column ="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Path Grid.Column ="1" Data="M0 0 L4 4 L8 0" Fill="Black" Width="8" Height="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </ControlTemplate>
+
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                        </Border>
+                           <Popup x:Name="PART_Popup"
+                                  IsOpen="{TemplateBinding IsDropDownOpen}"
+                                  PlacementTarget="{Binding ElementName=ToggleButton}"
+                                  Placement="Bottom"
+                                  AllowsTransparency="True"
+                                  VerticalOffset="12" 
+                                  Focusable="False">
+                                    
+                                <Border Style="{StaticResource PopupBorderStyle}">
+                                    <StackPanel>
+                                        <Border Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="8"/>
+                                        <Button Content="test" Width="{TemplateBinding Width}"  Style="{StaticResource ButtonStyle}"/>
+                                        <Button Content="test" Style="{StaticResource ButtonStyle}"/>ss
+                                    </StackPanel>
+                                    
+                                </Border>
+                                
 
 
-                                        </ControlTemplate>
-
-                                    </ToggleButton.Template>
-
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="4*"/>
-                                            <ColumnDefinition Width="1*"/>
-                                        </Grid.ColumnDefinitions>
-
-                                    </Grid>
-
-
-
-
-                                </ToggleButton>
-                            </Border>
-
+                            </Popup>
                         </Grid>
-
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-
-
 
     </Window.Resources>
 
@@ -178,7 +189,7 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                
+
             </Grid.RowDefinitions>
             <Border Grid.Column="0" Background="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="800" CornerRadius="20">
                 <Border.Effect>
@@ -199,7 +210,7 @@
 
 
         </Grid>
-       
+
         <!--右侧区域-->
         <Grid Grid.Column="1" Grid.Row="1" >
             <Grid.RowDefinitions>
@@ -217,7 +228,7 @@
                 </Border.Effect>
             </Border>
             <!--图像栏布局-->
-                <!--图层选择列表-->
+            <!--图层选择列表-->
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,0">
                 <ComboBox x:Name="LayerSelection"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="200" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
                 <ComboBox x:Name="CameraSelection"   Margin="30,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
@@ -254,7 +265,7 @@
                     <Label Content="V:" Grid.Column="11" HorizontalAlignment="Center" FontSize="25"/>
                     <Label x:Name="VValue" Content=""  Grid.Column="12" HorizontalAlignment="Center" FontSize="25"/>
                 </Grid>
-                
+
             </StackPanel>
             <!--图像显示窗口-->
             <Image x:Name="imgDisplay" Grid.Row="1" Grid.Column="0" Source="/Pictrue.jpg"
@@ -274,7 +285,7 @@
                 </Image.RenderTransform>
             </Image>
             <!--ROI区域-->
-            <Canvas Grid.Row="1" Grid.Column="0" x:Name="ROI" Background="Transparent" IsHitTestVisible="True" RenderTransform="{Binding ElementName=imgDisplay,Path=RenderTransform}"/>
+            <Canvas Grid.Row="1" Grid.Column="0" x:Name="ROI" Background="Transparent" IsHitTestVisible="True" RenderTransform="{Binding ElementName=imgDisplay,Path=RenderTransform}" Margin="-325,400,325,-400"/>
         </Grid>
         <!--文件菜单-->
         <Popup x:Name="FilePopup"
