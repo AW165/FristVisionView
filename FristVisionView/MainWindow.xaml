@@ -150,7 +150,7 @@
                                     <StackPanel>
                                         <Border Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="8"/>
                                         <Button Content="test" Width="{TemplateBinding Width}"  Style="{StaticResource ButtonStyle}"/>
-                                        <Button Content="test" Style="{StaticResource ButtonStyle}"/>ss
+                                        <Button Content="test" Style="{StaticResource ButtonStyle}"/>
                                     </StackPanel>
                                     
                                 </Border>
@@ -179,7 +179,7 @@
         <!--工具栏-->
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="52" Width="1680" Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="10" Orientation="Horizontal" Background="#FFECE8E8">
             <Button x:Name="File" Content="文件" Width="75" Height="23" Margin="10,10,0,10" Click="Button_Click"  BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
-            <Button x:Name="ToolBox" Content="工具" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="Tools" Content="工具" Command="{Binding ToolsButtonClick}" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}" Click="Tools_Click"/>
             <Button x:Name="View" Content="视图" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
         <!--左侧面板-->
@@ -191,7 +191,8 @@
             <Grid.RowDefinitions>
 
             </Grid.RowDefinitions>
-            <Border Grid.Column="0" Background="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="800" CornerRadius="20">
+            <!--导航栏-->
+            <Border Grid.Column="0" Background="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Height="800" CornerRadius="20" Margin="0,50,0,0">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1"
                                     BlurRadius="10"  
@@ -206,6 +207,46 @@
                 </StackPanel>
             </Border>
 
+            <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <!--参数Card1-->
+                <Border Height="150" Width="320" Background="#FFFFFF" Margin="0,50,0,0" CornerRadius="20">
+                    <Border.Effect >
+                        <DropShadowEffect ShadowDepth="1"       
+                                          BlurRadius="10"
+                                          Color="#20000000"
+                                          Opacity="0.3"/>
+                    </Border.Effect>
+                </Border>
+                <!--参数Card2-->
+                <Border Height="150" Width="320" Background="#FFFFFF" Margin="0,50,0,0" CornerRadius="20">
+                    <Border.Effect >
+                        <DropShadowEffect ShadowDepth="1"       
+                          BlurRadius="10"
+                          Color="#20000000"
+                          Opacity="0.3"/>
+                    </Border.Effect>
+                </Border>
+                <!--参数Card3-->
+                <Border Height="150" Width="320" Background="#FFFFFF" Margin="0,50,0,0" CornerRadius="20">
+                    <Border.Effect >
+                        <DropShadowEffect ShadowDepth="1"       
+                          BlurRadius="10"
+                          Color="#20000000"
+                          Opacity="0.3"/>
+                    </Border.Effect>
+                </Border>
+
+                <!--参数Card4-->
+                <Border Height="150" Width="320" Background="#FFFFFF" Margin="0,50,0,0" CornerRadius="20">
+                    <Border.Effect >
+                        <DropShadowEffect ShadowDepth="1"       
+                          BlurRadius="10"
+                          Color="#20000000"
+                          Opacity="0.3"/>
+                    </Border.Effect>
+                </Border>
+            </StackPanel>   
+         
 
 
 
@@ -230,7 +271,7 @@
             <!--图像栏布局-->
             <!--图层选择列表-->
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,0">
-                <ComboBox x:Name="LayerSelection"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="200" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
+                <ComboBox x:Name="LayerSelection"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Width="200" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
                 <ComboBox x:Name="CameraSelection"   Margin="30,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
                 <!--放大-->
                 <Button x:Name="Enlarge" Margin="30,0,0,0" Content="➕" FontSize="25" Foreground="Gray" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
@@ -285,7 +326,7 @@
                 </Image.RenderTransform>
             </Image>
             <!--ROI区域-->
-            <Canvas Grid.Row="1" Grid.Column="0" x:Name="ROI" Background="Transparent" IsHitTestVisible="True" RenderTransform="{Binding ElementName=imgDisplay,Path=RenderTransform}" Margin="-325,400,325,-400"/>
+            <Canvas Grid.Row="1" Grid.Column="0" x:Name="ROI" Background="Transparent" IsHitTestVisible="True" RenderTransform="{Binding ElementName=imgDisplay,Path=RenderTransform}" />
         </Grid>
         <!--文件菜单-->
         <Popup x:Name="FilePopup"
@@ -293,6 +334,22 @@
        Placement="Bottom"
        AllowsTransparency="True"
        StaysOpen="False">
+            <Border Background="#E5E5E5" BorderBrush="#D0D0D0" BorderThickness="1" MaxWidth="200" Width="90" CornerRadius="8">
+                <StackPanel>
+                    <Button Content="新建项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button Content="打开项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button Content="保存项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button  Content="另存为" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button  Content="退出" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                </StackPanel>
+            </Border>
+        </Popup>
+        <Popup x:Name="ToolsPopup" 
+               PlacementTarget="{Binding ElementName=Tools}"
+               Placement="Bottom"
+               IsOpen="{Binding IsToolsPopupOpen,Mode=TwoWay}"
+               AllowsTransparency="True"
+               StaysOpen="False">
             <Border Background="#E5E5E5" BorderBrush="#D0D0D0" BorderThickness="1" MaxWidth="200" Width="90" CornerRadius="8">
                 <StackPanel>
                     <Button Content="新建项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>

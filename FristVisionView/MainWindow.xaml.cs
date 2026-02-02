@@ -20,6 +20,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        ToolsButtonClick = new RelayCommand(() => IsToolsPopupOpen = !IsToolsPopupOpen);
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -48,13 +49,5 @@ public partial class MainWindow : Window
 
     }
 
-    private void LayerSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
-    private void ToggleButton_Click(object sender, RoutedEventArgs e)
-    {
-        
-    }
+    public ICommand ToolsButtonClick {  get; }
 }
