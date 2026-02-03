@@ -2,7 +2,7 @@
 
 namespace FirstVisionView
 {
-    public class ButtonHelp
+    public static class ButtonHelp
     {
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.RegisterAttached(
@@ -21,7 +21,7 @@ namespace FirstVisionView
             return (CornerRadius)obj.GetValue(CornerRadiusProperty);
         }
     }
-    public class ComboboxHelp
+    public static class ComboboxHelp
     {
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.RegisterAttached(

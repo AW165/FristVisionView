@@ -20,34 +20,17 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        ToolsButtonClick = new RelayCommand(() => IsToolsPopupOpen = !IsToolsPopupOpen);
+        Page.Content = new HomePage();
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        FilePopup.IsOpen = true;
-        
+        Page.Content = new DatePage();
+
     }
 
-    private void imgDisplay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    private void Button_Click_1(object sender, RoutedEventArgs e)
     {
-
+        Page.Content = new HomePage();
     }
-
-    private void imgDisplay_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-    {
-
-    }
-
-    private void imgDisplay_MouseMove(object sender, MouseEventArgs e)
-    {
-
-    }
-
-    private void imgDisplay_MouseWheel(object sender, MouseWheelEventArgs e)
-    {
-
-    }
-
-    public ICommand ToolsButtonClick {  get; }
 }
