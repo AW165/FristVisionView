@@ -21,6 +21,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         Page.Content = new HomePage();
+
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
