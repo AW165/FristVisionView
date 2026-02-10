@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FirstVisionView.DataModel;
 
-namespace FirstVisionView
+namespace FirstVisionView.DateBase
 {
-    
-    class StaticEvent
+    public static class DateManage
     {
 
     }

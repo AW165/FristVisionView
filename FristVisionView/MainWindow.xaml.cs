@@ -17,21 +17,28 @@ namespace FirstVisionView;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private DatePage _DatePage;
+    private HomePage _HomePage;
     public MainWindow()
     {
         InitializeComponent();
-        Page.Content = new HomePage();
+        _HomePage = new HomePage();
+        Page.Content = _HomePage;
 
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        Page.Content = new DatePage();
+        if (_DatePage != null) { Page.Content = _DatePage; return; }
+        _DatePage = new DatePage();
+        Page.Content = _DatePage;
 
     }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
-        Page.Content = new HomePage();
+        if (_HomePage != null) {Page.Content = _HomePage; ; return; }
+        _HomePage = new HomePage();
+        Page.Content = _HomePage;
     }
 }

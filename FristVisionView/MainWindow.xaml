@@ -31,7 +31,7 @@
 
             </Grid.RowDefinitions>
             <!--导航栏-->
-            <Border Grid.Column="0" Background="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Height="800" CornerRadius="20" Margin="20,50,0,0">
+            <Border Grid.Column="0" Background="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="800" CornerRadius="20" >
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1"
                                     BlurRadius="10"  
@@ -43,8 +43,10 @@
                 <StackPanel  Grid.Row="1" Grid.RowSpan="2" Background="Transparent" >
                     <Button Content="🏠" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}" Click="Button_Click_1"/>
                     <Button  Content="🧾" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button  Content="⚙" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
                 </StackPanel>
             </Border>
+            <!--Page切换-->
             <ContentControl x:Name="Page" Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
 
 

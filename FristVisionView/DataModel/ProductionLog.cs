@@ -7,6 +7,11 @@ using FreeSql.DataAnnotations;
 
 namespace FirstVisionView.DataModel
 {
+    /// <summary>
+    /// 生产记录
+    /// 这个类 = 数据库里的一张表
+    /// 类的每个属性 = 表里的一列
+    /// </summary>
     [Table (Name ="Production_Log")]
     internal class ProductionLog
     {

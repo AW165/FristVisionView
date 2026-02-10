@@ -149,7 +149,7 @@
                                 <StackPanel>
                                     <Border Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="8"/>
                                     <Button Content="test" Width="{TemplateBinding Width}"  Style="{StaticResource ButtonStyle}"/>
-                                    <Button Content="test" Style="{StaticResource ButtonStyle}"/>
+                                    <Button Content="test"  Width="{TemplateBinding Width}" Style="{StaticResource ButtonStyle}"/>
                                 </StackPanel>
 
                             </Border>
@@ -162,4 +162,25 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="Socrollview" TargetType="ScrollViewer">
+        <Setter Property="Background" Value="TransParent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Track">
+                    <Border Style="{StaticResource BorderStyle}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate>
+                    <Thumb>
+                        
+                    </Thumb>
+                </ControlTemplate>
+                
+            </Setter.Value>
+        </Setter>
+    </Style>
+               
 </ResourceDictionary>
