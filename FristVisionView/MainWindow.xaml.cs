@@ -9,7 +9,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 namespace FirstVisionView;
 
 /// <summary>
@@ -19,6 +18,7 @@ public partial class MainWindow : Window
 {
     private DatePage _DatePage;
     private HomePage _HomePage;
+    private SettingPage _SettingPage;
     public MainWindow()
     {
         InitializeComponent();
@@ -40,5 +40,11 @@ public partial class MainWindow : Window
         if (_HomePage != null) {Page.Content = _HomePage; ; return; }
         _HomePage = new HomePage();
         Page.Content = _HomePage;
+    }
+
+    private void Setting_Click(object sender, RoutedEventArgs e)
+    {
+        if (_SettingPage != null) { Page.Content = _SettingPage; ; return; }
+        _SettingPage = new SettingPage();
     }
 }
