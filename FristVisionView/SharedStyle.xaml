@@ -162,92 +162,83 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="TrackButton" TargetType="RepeatButton">
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="Focusable" Value="False"/>
-        <Setter Property="IsTabStop" Value="False"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="RepeatButton">
-                    <!-- 背景透明，这样看不见但占位置 -->
-                    <Border Background="Transparent"/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <!--圆角滑块-->
-    <Style x:Key="PAPT_Thumb" TargetType="Thumb">
-        <Setter Property="Background" Value="#AAAf"/>
-        <Setter Property="MinHeight" Value="20"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Thumb">
-                    <Border CornerRadius="8" Background="{TemplateBinding Background}" Margin="2"/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
-
-    <!--圆角滑槽-->
-    <Style x:Key="PART_Scroll" TargetType="ScrollBar">
-        
+        <Style x:Key="TrackButton" TargetType="RepeatButton">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <!-- 背景透明，这样看不见但占位置 -->
+                        <Border Background="Transparent"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--圆角滑块-->
+        <Style x:Key="PAPT_Thumb" TargetType="Thumb">
+        <Setter Property="Background" Value="#AAf"/>
+            <Setter Property="MinHeight" Value="5"/>
+            <Setter Property="MinWidth" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Margin="2,1,2,1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--圆角滑槽-->
+        <Style x:Key="PART_Scroll" TargetType="ScrollBar">
+        <Setter Property="Width" Value="13"/>
         <Setter Property="MinHeight" Value="50"/>
-        <Setter Property="Template" >
-            <Setter.Value>
-                <ControlTemplate TargetType="ScrollBar">
-                    <Border Background="#AFF" CornerRadius="8" MinHeight="30" Margin="1" Width="{TemplateBinding Width}">
-                        <Track x:Name="PART_Track" IsDirectionReversed="True">
-                            <Track.DecreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource TrackButton}"/>
-                            </Track.DecreaseRepeatButton>
-                            <Track.Thumb>
-                                <Thumb Style="{StaticResource PAPT_Thumb}"/>
-                            </Track.Thumb>
-                            <Track.IncreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource TrackButton}"/>
-                            </Track.IncreaseRepeatButton>
-                        </Track>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <!--圆角ScrollViewer-->
-    <Style x:Key="PART_ScrollViwer" TargetType="ScrollViewer">
-        <Setter Property="Width" Value="15"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ScrollViewer">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <ScrollContentPresenter Grid.Column="0" Grid.Row="0"/>
-                        <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1" 
-                                   
-                                   Style="{StaticResource PART_Scroll}" 
-                                   Value="{TemplateBinding VerticalOffset}"
-                                   Orientation="Vertical"
-                                   ViewportSize="{TemplateBinding ViewportHeight}"
-                                   Maximum="{TemplateBinding ScrollableHeight}">
-                                   
-                            
-                         </ScrollBar>
-
-
-
-
-                    </Grid>
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Border Background="#AFF" CornerRadius="8" MinHeight="30" Margin="1" Width="{TemplateBinding Width}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Style="{StaticResource TrackButton}"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource PAPT_Thumb}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Style="{StaticResource TrackButton}"/>
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--圆角ScrollViewer-->
+        <Style x:Key="PART_ScrollViwer" TargetType="ScrollViewer">
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollViewer">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ScrollContentPresenter Grid.Column="0" Grid.Row="0"/>
+                            <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1" 
+                                       Style="{StaticResource PART_Scroll}" 
+                                       Value="{TemplateBinding VerticalOffset}"
+                                       Orientation="Vertical"
+                                       ViewportSize="{TemplateBinding ViewportHeight}"
+                                       Maximum="{TemplateBinding ScrollableHeight}">
+                            </ScrollBar>
+                        </Grid>
                     
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 </ResourceDictionary>
