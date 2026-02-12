@@ -17,16 +17,21 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Border Background="#ffffff" Margin="25,25,25,25" CornerRadius="50" Style="{StaticResource BorderStyle}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto"   HorizontalScrollBarVisibility="Auto" Margin="10,10,10,10" Style="{StaticResource PART_ScrollViwer}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
+                <Border Background="#ffffff" Margin="25,25,25,25" CornerRadius="35" Style="{StaticResource BorderStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="6*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Parameter" HorizontalAlignment="Center"/>
+                        <ScrollViewer Grid.Row="1"  VerticalScrollBarVisibility="Auto"   HorizontalScrollBarVisibility="Auto" Margin="10,0,10,17" Style="{StaticResource PART_ScrollViwer}">
                             
-                        </Grid>
-                    </ScrollViewer>
+                        </ScrollViewer>
+
+                    </Grid>
 
                 </Border>
             </Grid>
