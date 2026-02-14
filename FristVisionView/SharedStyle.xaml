@@ -178,12 +178,12 @@
         <!--圆角滑块-->
         <Style x:Key="PAPT_Thumb" TargetType="Thumb">
         <Setter Property="Background" Value="#AAf"/>
-            <Setter Property="MinHeight" Value="5"/>
+            <Setter Property="MinHeight" Value="6"/>
             <Setter Property="MinWidth" Value="5"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Thumb">
-                        <Border CornerRadius="5" Background="{TemplateBinding Background}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Margin="2,1,2,1"/>
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Margin="2,1,2,1"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -195,7 +195,7 @@
             <Setter Property="Template" >
                 <Setter.Value>
                     <ControlTemplate TargetType="ScrollBar">
-                        <Border Background="#AFF" CornerRadius="8" MinHeight="30" Margin="1" Width="{TemplateBinding Width}">
+                        <Border Background="#AFF" CornerRadius="6" MinHeight="30" Margin="1" Width="{TemplateBinding Width}">
                             <Track x:Name="PART_Track" IsDirectionReversed="True">
                                 <Track.DecreaseRepeatButton>
                                     <RepeatButton Style="{StaticResource TrackButton}"/>
