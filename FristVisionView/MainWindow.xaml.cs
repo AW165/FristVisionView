@@ -24,7 +24,9 @@ public partial class MainWindow : Window
         InitializeComponent();
         _HomePage = new HomePage();
         Page.Content = _HomePage;
-
+        _DatePage = new DatePage();
+        _SettingPage = new SettingPage();
+        
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -46,5 +48,6 @@ public partial class MainWindow : Window
     {
         if (_SettingPage != null) { Page.Content = _SettingPage; ; return; }
         _SettingPage = new SettingPage();
+        Page.Content = _SettingPage;
     }
 }

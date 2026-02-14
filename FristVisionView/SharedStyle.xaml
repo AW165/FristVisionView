@@ -113,8 +113,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Grid >
-
-
                         <Border  Background="{TemplateBinding Background}" CornerRadius="{Binding Path=(local:ComboboxHelp.CornerRadius),RelativeSource={RelativeSource AncestorType=ComboBox}}">
                             <ToggleButton x:Name="ToggleButton" 
                                                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
@@ -130,7 +128,7 @@
                                             </Grid.ColumnDefinitions>
                                             <Border Grid.ColumnSpan="2" Background="Transparent" CornerRadius="{Binding Path=(local:ComboboxHelp.CornerRadius),RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
                                             <ContentPresenter Grid.Column ="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            <Path Grid.Column ="1" Data="M0 0 L4 4 L8 0" Fill="Black" Width="8" Height="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Path Grid.Column ="1" Data="M0 0 L4 4 L8 0" Stroke="Black" Stretch="Uniform" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Fill="Transparent" Width="15" Height="10"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Grid>
                                     </ControlTemplate>
 
@@ -144,18 +142,11 @@
                                   AllowsTransparency="True"
                                   VerticalOffset="12" 
                                   Focusable="False">
-
                             <Border Style="{StaticResource BorderStyle}">
                                 <StackPanel>
                                     <Border Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="8"/>
-                                    <Button Content="test" Width="{TemplateBinding Width}"  Style="{StaticResource ButtonStyle}"/>
-                                    <Button Content="test"  Width="{TemplateBinding Width}" Style="{StaticResource ButtonStyle}"/>
                                 </StackPanel>
-
                             </Border>
-
-
-
                         </Popup>
                     </Grid>
                 </ControlTemplate>
@@ -178,6 +169,7 @@
         <!--圆角滑块-->
         <Style x:Key="PAPT_Thumb" TargetType="Thumb">
         <Setter Property="Background" Value="#AAf"/>
+            <!--不要指定太长，否则计算异常会被裁切-->
             <Setter Property="MinHeight" Value="6"/>
             <Setter Property="MinWidth" Value="5"/>
             <Setter Property="Template">
@@ -190,12 +182,13 @@
         </Style>
         <!--圆角滑槽-->
         <Style x:Key="PART_Scroll" TargetType="ScrollBar">
-        <Setter Property="Width" Value="13"/>
+        <Setter Property="Width" Value="8"/>
+        <Setter Property="MinWidth" Value="0"/>
         <Setter Property="MinHeight" Value="50"/>
             <Setter Property="Template" >
                 <Setter.Value>
                     <ControlTemplate TargetType="ScrollBar">
-                        <Border Background="#AFF" CornerRadius="6" MinHeight="30" Margin="1" Width="{TemplateBinding Width}">
+                        <Border Background="#AFF" CornerRadius="4" MinHeight="30" Padding="1" Width="{TemplateBinding Width}">
                             <Track x:Name="PART_Track" IsDirectionReversed="True">
                                 <Track.DecreaseRepeatButton>
                                     <RepeatButton Style="{StaticResource TrackButton}"/>
@@ -213,9 +206,10 @@
             </Setter>
         </Style>
         <!--圆角ScrollViewer-->
-        <Style x:Key="PART_ScrollViwer" TargetType="ScrollViewer">
-            
-            <Setter Property="Template">
+    <Style x:Key="PART_ScrollViwer" TargetType="ScrollViewer">
+        <!--不要指定宽度，直接用grid填充满，否则右侧这个滚动条会被放到中间！！！-->
+        <!--要指定滑槽宽度，要么去滑槽样式改，要么修改下面滑槽内元素-->
+        <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ScrollViewer">
                         <Grid>
