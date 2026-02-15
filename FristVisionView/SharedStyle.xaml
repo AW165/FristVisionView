@@ -127,7 +127,6 @@
                                                 <ColumnDefinition Width="30"/>
                                             </Grid.ColumnDefinitions>
                                             <Border Grid.ColumnSpan="2" Background="Transparent" CornerRadius="{Binding Path=(local:ComboboxHelp.CornerRadius),RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
-                                            <ContentPresenter Grid.Column ="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             <Path Grid.Column ="1" Data="M0 0 L4 4 L8 0" Stroke="Black" Stretch="Uniform" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Fill="Transparent" Width="15" Height="10"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Grid>
                                     </ControlTemplate>
@@ -135,6 +134,14 @@
                                 </ToggleButton.Template>
                             </ToggleButton>
                         </Border>
+                        <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                                          Margin="10,0,30,0"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"/>
                         <Popup x:Name="PART_Popup"
                                   IsOpen="{TemplateBinding IsDropDownOpen}"
                                   PlacementTarget="{Binding ElementName=ToggleButton}"
@@ -142,10 +149,11 @@
                                   AllowsTransparency="True"
                                   VerticalOffset="12" 
                                   Focusable="False">
-                            <Border Style="{StaticResource BorderStyle}">
-                                <StackPanel>
-                                    <Border Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="8"/>
-                                </StackPanel>
+                            <Border Style="{StaticResource BorderStyle}" MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                    MinWidth="{TemplateBinding ActualWidth}">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                </ScrollViewer>
                             </Border>
                         </Popup>
                     </Grid>

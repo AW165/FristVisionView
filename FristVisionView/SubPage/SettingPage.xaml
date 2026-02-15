@@ -157,9 +157,9 @@
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <Label Content="CameraNumber" FontSize="25" Grid.Column="0" Grid.Row="0" Margin="40,0,0,0"/>
-                                <ComboBox Style="{StaticResource ComboboxStyle}" MaxWidth="200" Margin="0,0,0,2"  local:ComboboxHelp.CornerRadius="15" Grid.Column="1" Grid.Row="0"/>
+                                <ComboBox x:Name="CameraNumber" Style="{StaticResource ComboboxStyle}" MaxWidth="200" Margin="0,0,0,2"  local:ComboboxHelp.CornerRadius="15" Grid.Column="1" Grid.Row="0" SelectionChanged="CameraSet_SelectionChanged"/>
 
-                                <ContentControl Grid.Row="1" Grid.ColumnSpan="2"/>
+                                <ContentControl x:Name="CameraSetingPage" Grid.Row="1" Grid.ColumnSpan="2"/>
                             </Grid>
                             
                             
