@@ -17,13 +17,13 @@ namespace FirstVisionView;
 public partial class MainWindow : Window
 {
     private DatePage _DatePage;
-    private HomePage _HomePage;
+    private AdjustPage _AdjustPage;
     private SettingPage _SettingPage;
     public MainWindow()
     {
         InitializeComponent();
-        _HomePage = new HomePage();
-        Page.Content = _HomePage;
+        _AdjustPage = new AdjustPage();
+        Page.Content = _AdjustPage;
         _DatePage = new DatePage();
         _SettingPage = new SettingPage();
         
@@ -39,9 +39,9 @@ public partial class MainWindow : Window
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
-        if (_HomePage != null) {Page.Content = _HomePage; ; return; }
-        _HomePage = new HomePage();
-        Page.Content = _HomePage;
+        if (_AdjustPage != null) {Page.Content = _AdjustPage; ; return; }
+        _AdjustPage = new AdjustPage();
+        Page.Content = _AdjustPage;
     }
 
     private void Setting_Click(object sender, RoutedEventArgs e)

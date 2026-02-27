@@ -25,9 +25,9 @@
         <Label Content="Camera IP" FontSize="25"  Grid.Column="0" Grid.Row="0" Margin="40,0,0,0"/>
         <Label Content="Camera Port" FontSize="25" Grid.Column="0" Grid.Row="1" Margin="40,20,0,0"/>
         <Label Content="CommunicationProtocol"  FontSize="25" Grid.Column="0" Grid.Row="2" Margin="40,20,0,0"/>
-        <ComboBox Style="{StaticResource ComboboxStyle}" MaxWidth="200" Margin="0,2,0,2"   global:ComboboxHelp.CornerRadius="15" Grid.Column="1" Grid.Row="0"/>
-        <ComboBox Style="{StaticResource ComboboxStyle}" MaxWidth="200" Margin="0,20,0,2"  global:ComboboxHelp.CornerRadius="15" Grid.Column="1" Grid.Row="1"/>
-        <ComboBox Style="{StaticResource ComboboxStyle}" MaxWidth="200" Margin="0,20,0,2"  global:ComboboxHelp.CornerRadius="15" Grid.Column="1" Grid.Row="2"/>
+        <ComboBox Style="{StaticResource ComboboxStyle}" MaxWidth="200" Margin="0,2,0,2"   global:ComboboxHelp.CornerRadius="18" Grid.Column="1" Grid.Row="0"/>
+        <ComboBox Style="{StaticResource ComboboxStyle}" MaxWidth="200" Margin="0,20,0,2"  global:ComboboxHelp.CornerRadius="18" Grid.Column="1" Grid.Row="1"/>
+        <ComboBox Style="{StaticResource ComboboxStyle}" MaxWidth="200" Margin="0,20,0,2"  global:ComboboxHelp.CornerRadius="18" Grid.Column="1" Grid.Row="2"/>
 
 
     </Grid>
