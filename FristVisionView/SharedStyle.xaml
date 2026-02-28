@@ -268,4 +268,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
+    <Style x:Key="PART_Border" TargetType="Border">
+        <Setter Property="Effect" >
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="1"       
+                  BlurRadius="10"
+                  Color="#20000000"
+                  Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+        
+    </Style>
 </ResourceDictionary>

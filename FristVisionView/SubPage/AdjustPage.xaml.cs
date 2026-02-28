@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FirstVisionView.Card;
 
 namespace FirstVisionView
 {
@@ -24,14 +25,19 @@ namespace FirstVisionView
         {
             InitializeComponent();
         }
+        private List<Border> AllCards = new List<Border>();
+        private List<Border> SelectionCards = new List<Border>();
         private bool _isSelecting;
         private Point _SelectionStratPoint;
-        private Point _SelectionEndPoint;
+        private Point _RightButtonDown;
+        private Point _CardOffset;//存储移动的距离
+        private bool _IsDraggingCard;//是否拖拽
+        private FrameworkElement _CurrentClickCard; //存储当前点击的卡片
         //鼠标左键按下
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //获取鼠标指针当前的位置并赋值给起始点
-            _SelectionStratPoint = e.GetPosition(ParamCanvas);
+            _SelectionStratPoint = e.GetPosition(ParamentCanvas);
             //设置选择中的状态
             _isSelecting = true;
             //设置矩形框的长和宽为0
@@ -39,9 +45,10 @@ namespace FirstVisionView
             SelectionBox.Height = 0;
             //设置矩形框生成的起始点
             Canvas.SetLeft(SelectionBox,_SelectionStratPoint.X);
-            Canvas.SetLeft(SelectionBox,_SelectionStratPoint.Y);
+            Canvas.SetTop(SelectionBox,_SelectionStratPoint.Y);
             //设置这个框为可见
             SelectionBox.Visibility = Visibility.Visible;
+            ParamentCanvas.CaptureMouse();
         }
         //鼠标左键抬起
         private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -50,22 +57,59 @@ namespace FirstVisionView
             SelectionBox.Visibility = Visibility.Collapsed;
             //设置选择状态结束
             _isSelecting = false;
+            ParamentCanvas.ReleaseMouseCapture();
         }
         //鼠标移动
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (_isSelecting)
             {
-                Point CurrentPoint = e.GetPosition(ParamCanvas);
+                Point CurrentPoint = e.GetPosition(ParamentCanvas);
                 double X = Math.Min(_SelectionStratPoint.X,CurrentPoint.X);
                 double Y = Math.Min(_SelectionStratPoint.Y,CurrentPoint.Y);
-                double weight = Math.Abs(CurrentPoint.X - _SelectionStratPoint.X);
+                double width= Math.Abs(CurrentPoint.X - _SelectionStratPoint.X);
                 double height = Math.Abs(CurrentPoint.Y - _SelectionStratPoint.Y);
                 Canvas.SetLeft(SelectionBox,X);
-                Canvas.SetRight(SelectionBox,Y);
-                SelectionBox.Width = Width;
-                SelectionBox.Height = Height;
+                Canvas.SetTop(SelectionBox,Y);
+                SelectionBox.Width = width;
+                SelectionBox.Height = height;
+
             }
+        }
+        
+        private void AddNewCard()
+        {
+            Card.ToolCard NewCard = new Card.ToolCard();
+            Canvas.SetTop(NewCard,25);
+            Canvas.SetLeft(NewCard,25);
+            NewCard.MouseLeftButtonDown += Card_MouseLeftButtonDown;
+            NewCard.MouseLeftButtonUp += Card_MouseLeftButtonUp;
+            NewCard.MouseMove+= Card_MouseMove;
+            ParamentCanvas.Children.Add(NewCard);
+
+        }
+
+        private void Card_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        private void Card_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        private void Card_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void ParamentCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void ParamentCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

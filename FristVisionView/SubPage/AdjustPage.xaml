@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FirstVisionView"
+             xmlns:toolcard ="clr-namespace:FirstVisionView.Card"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1600">
     <Grid>
@@ -12,49 +13,27 @@
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <!--参数区域,裁剪必须开，否则卡片会被拖出界面-->
-        <Border Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" ClipToBounds="True" IsHitTestVisible="False">
+        <Border Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" IsHitTestVisible="True" ClipToBounds="True" >
             <Grid>
-                <Canvas RenderTransformOrigin="0.5,0.5">
+                <Canvas RenderTransformOrigin="0.5,0.5" x:Name="ParamentCanvas" IsHitTestVisible="True"
+                        Background="Transparent"
+                        MouseLeftButtonDown="Canvas_MouseLeftButtonDown" 
+                        MouseLeftButtonUp="Canvas_MouseLeftButtonUp" 
+                        MouseMove="Canvas_MouseMove" MouseRightButtonDown="ParamentCanvas_MouseRightButtonDown" MouseRightButtonUp="ParamentCanvas_MouseRightButtonUp">
                     <!--参数Card1-->
-                    <Border Height="150" Width="250" Background="#FFFFFF"  CornerRadius="20">
-                        <Border.Effect >
-                            <DropShadowEffect ShadowDepth="1"       
-                  BlurRadius="10"
-                  Color="#20000000"
-                  Opacity="0.3"/>
-                        </Border.Effect>
-                    </Border>
-                    <!--参数Card2-->
-                    <Border Height="150" Width="250" Background="#FFFFFF"  CornerRadius="20">
-                        <Border.Effect >
-                            <DropShadowEffect ShadowDepth="1"       
-                                              BlurRadius="10"
-                                              Color="#20000000"
-                                              Opacity="0.3"/>
-                         </Border.Effect>
-                    </Border>
-                    <!--参数Card3-->
-                    <Border Height="150" Width="250" Background="#FFFFFF" CornerRadius="20">
-                        <Border.Effect >
-                            <DropShadowEffect ShadowDepth="1"       
-                                              BlurRadius="10"
-                                              Color="#20000000"
-                                              Opacity="0.3"/>
-                        </Border.Effect>
-                    </Border>
-                </Canvas>
-                <Canvas
-                    x:Name="ParamCanvas"
-                    Panel.ZIndex="1"
+                    <toolcard:ToolCard Canvas.Top="250" Canvas.Left="250" MouseLeftButtonDown="Card_MouseLeftButtonDown" MouseMove="ToolCard_MouseMove"/>
                     
-                    IsHitTestVisible="False" MouseLeftButtonDown="Canvas_MouseLeftButtonDown" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseMove="Canvas_MouseMove">
+
+                    <!--参数Card2-->
+
+                    <!--选项框放最后渲染，否则会显示在卡片下方，还要注意命中测试要关闭不要拦截鼠标事件-->
                     <Rectangle x:Name="SelectionBox"
-                               Stroke="Blue"
+                               Stroke="Gray"
                                StrokeThickness="1"
-                               Fill="#330000ff"
+                               Fill="#33686879"
+                               IsHitTestVisible="False"
                                Visibility="Collapsed">
                     </Rectangle>
-                    
                 </Canvas>
             </Grid>
             
