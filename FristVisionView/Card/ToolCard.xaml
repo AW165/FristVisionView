@@ -13,7 +13,17 @@
                 BorderThickness="2" 
                 IsHitTestVisible="True"
                 BorderBrush="Transparent" 
-                Style="{StaticResource PART_Border}" >
+                Style="{StaticResource BorderStyle}" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+                <Label Content="{Binding Title}" FontSize="14"/>
+                
+            </Grid>
         </Border>
 
     </Grid>

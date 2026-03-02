@@ -17,7 +17,7 @@ using FirstVisionView.Card;
 namespace FirstVisionView
 {
     /// <summary>
-    /// HomePage.xaml 的交互逻辑
+    ///  参数调整界面
     /// </summary>
     public partial class AdjustPage : UserControl
     {
@@ -27,12 +27,18 @@ namespace FirstVisionView
         }
         private List<Border> AllCards = new List<Border>();
         private List<Border> SelectionCards = new List<Border>();
-        private bool _isSelecting;
+        private bool _isSelecting;//拉框
         private Point _SelectionStratPoint;
         private Point _RightButtonDown;
         private Point _CardOffset;//存储移动的距离
+        private bool _isSelectingCard;//卡片是否被选择
         private bool _IsDraggingCard;//是否拖拽
         private FrameworkElement _CurrentClickCard; //存储当前点击的卡片
+        private int Distance_Threshold = 5; //存储最小移动的距离
+        private bool _CanvasRightButtonDown;
+        private bool _CanvasRightButtonUp;
+        private bool _CardRightButtonDown;
+        private bool _CardRightButtonUp;
         //鼠标左键按下
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -77,39 +83,107 @@ namespace FirstVisionView
             }
         }
         
-        private void AddNewCard()
-        {
-            Card.ToolCard NewCard = new Card.ToolCard();
-            Canvas.SetTop(NewCard,25);
-            Canvas.SetLeft(NewCard,25);
-            NewCard.MouseLeftButtonDown += Card_MouseLeftButtonDown;
-            NewCard.MouseLeftButtonUp += Card_MouseLeftButtonUp;
-            NewCard.MouseMove+= Card_MouseMove;
-            ParamentCanvas.Children.Add(NewCard);
-
-        }
+      
 
         private void Card_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            var card = sender as FrameworkElement;
+            if (card == null)
+            {
+                return;
+            }
+            _CurrentClickCard = card;
+            _IsDraggingCard = true;
+            _CardOffset = e.GetPosition(card);
+            _SelectionStratPoint = e.GetPosition(ParamentCanvas);
+            e.Handled = true;
+            card.CaptureMouse();
         }
         private void Card_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-
+            if (_IsDraggingCard == false)
+            {
+                return;
+            }
+            e.Handled = true;
+            _IsDraggingCard = false;
+            _CurrentClickCard.ReleaseMouseCapture();
         }
         private void Card_MouseMove(object sender, MouseEventArgs e)
         {
 
+            e.Handled = true;
+            if (_IsDraggingCard)
+            {
+
+                Point currentPoint = e.GetPosition(ParamentCanvas);
+                var disx = Math.Abs(currentPoint.X - _SelectionStratPoint.X);
+                var disy = Math.Abs(currentPoint.Y - _SelectionStratPoint.Y);
+                if (disx > Distance_Threshold || disy > Distance_Threshold)
+                {
+                    double x = currentPoint.X - _CardOffset.X;
+                    double y = currentPoint.Y - _CardOffset.Y;
+                    Canvas.SetLeft(_CurrentClickCard, x);
+                    Canvas.SetTop(_CurrentClickCard, y);
+                }
+                
+            }
         }
 
         private void ParamentCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            
+            _CanvasRightButtonDown = true;
         }
 
         private void ParamentCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
+            if (_CanvasRightButtonDown)
+            {
+                AddCard.IsOpen = true;
+                _CanvasRightButtonDown = false;
 
+            }
+
+        }
+
+        private void AddNewCard(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            Card.ToolCard NewCard = new Card.ToolCard();
+            Canvas.SetTop(NewCard, 25);
+            Canvas.SetLeft(NewCard, 25);
+            NewCard.MouseLeftButtonDown += Card_MouseLeftButtonDown;
+            NewCard.MouseLeftButtonUp += Card_MouseLeftButtonUp;
+            NewCard.MouseMove += Card_MouseMove;
+            NewCard.MouseRightButtonDown += Card_MouseRightButtonDown;
+            NewCard.MouseRightButtonUp += Card_MouseRightButtonUp; 
+            ParamentCanvas.Children.Add(NewCard);
+        }
+
+        private void Card_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            if (_CardRightButtonDown)
+            {
+                DeleteCard.IsOpen = true;
+                _CanvasRightButtonDown = false;
+            }
+        }
+
+        private void Card_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            if (_CurrentClickCard == null) { return; }
+            _CardRightButtonDown = true;
+            
+        }
+
+        private void DeleCard(object sender, RoutedEventArgs e)
+        {
+            var card = _CurrentClickCard;
+            if (card == null) { return; }
+            ParamentCanvas.Children.Remove(card);
+            DeleteCard.IsOpen = false;
         }
     }
 }

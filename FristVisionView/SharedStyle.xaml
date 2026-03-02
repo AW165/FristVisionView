@@ -186,6 +186,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+        <!--滑槽按钮-->
         <Style x:Key="TrackButton" TargetType="RepeatButton">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Focusable" Value="False"/>
@@ -243,40 +244,30 @@
         <!--不要指定宽度，直接用grid填充满，否则右侧这个滚动条会被放到中间！！！-->
         <!--要指定滑槽宽度，要么去滑槽样式改，要么修改下面滑槽内元素-->
         <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ScrollViewer">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <ScrollContentPresenter Grid.Column="0" Grid.Row="0"/>
-                            <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1" 
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollViewer">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ScrollContentPresenter Grid.Column="0" Grid.Row="0"/>
+                        <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1" 
                                        Style="{StaticResource PART_Scroll}" 
                                        Value="{TemplateBinding VerticalOffset}"
                                        Orientation="Vertical"
                                        ViewportSize="{TemplateBinding ViewportHeight}"
                                        Maximum="{TemplateBinding ScrollableHeight}">
-                            </ScrollBar>
-                        </Grid>
-                    
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    <Style x:Key="PART_Border" TargetType="Border">
-        <Setter Property="Effect" >
-            <Setter.Value>
-                <DropShadowEffect ShadowDepth="1"       
-                  BlurRadius="10"
-                  Color="#20000000"
-                  Opacity="0.3"/>
+                        </ScrollBar>
+                    </Grid>
+
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
-        
     </Style>
+
 </ResourceDictionary>

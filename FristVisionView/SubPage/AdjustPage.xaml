@@ -20,14 +20,54 @@
                         MouseLeftButtonDown="Canvas_MouseLeftButtonDown" 
                         MouseLeftButtonUp="Canvas_MouseLeftButtonUp" 
                         MouseMove="Canvas_MouseMove" MouseRightButtonDown="ParamentCanvas_MouseRightButtonDown" MouseRightButtonUp="ParamentCanvas_MouseRightButtonUp">
-                    <!--参数Card1-->
-                    <toolcard:ToolCard Canvas.Top="250" Canvas.Left="250" MouseLeftButtonDown="Card_MouseLeftButtonDown" MouseMove="ToolCard_MouseMove"/>
-                    
+                    <!--参数Card-->
+                    <!--右键添加Card-->
+                    <Popup 
+                        x:Name="AddCard"
+                        Width="Auto" 
+                        AllowsTransparency="True"
+                        Panel.ZIndex="1"
+                        Height="Auto" 
+                        IsOpen="False" 
+                        StaysOpen="False" 
+                        Placement="Mouse" >
+                        <Border Padding="15">
+                            <Border  Width="Auto" MinHeight="150" MinWidth="100" CornerRadius="18" Height="Auto" Style="{StaticResource BorderStyle}">
+                                <StackPanel>
+                                    <Button Content="添加Card" Click="AddNewCard" Background="Transparent" Style="{StaticResource MenuButtonStyle}"/>
 
+
+                                </StackPanel>
+                            </Border>
+
+                        </Border>
+                    </Popup>
+
+                    <Popup 
+                            x:Name="DeleteCard"
+                            Width="Auto" 
+                            AllowsTransparency="True"
+                            Panel.ZIndex="1"
+                            Height="Auto" 
+                            IsOpen="False" 
+                            StaysOpen="False" 
+                            Placement="Mouse" >
+                        <Border Padding="15">
+                            <Border  Width="Auto" MinHeight="50" MinWidth="30" CornerRadius="10" Height="Auto" Style="{StaticResource BorderStyle}">
+                                <StackPanel>
+                                    <Button Content="删除Card" Click="DeleCard" Background="Transparent" Style="{StaticResource MenuButtonStyle}"/>
+
+
+                                </StackPanel>
+                            </Border>
+
+                        </Border>
+                    </Popup>
                     <!--参数Card2-->
 
                     <!--选项框放最后渲染，否则会显示在卡片下方，还要注意命中测试要关闭不要拦截鼠标事件-->
                     <Rectangle x:Name="SelectionBox"
+                               Panel.ZIndex="1"
                                Stroke="Gray"
                                StrokeThickness="1"
                                Fill="#33686879"
