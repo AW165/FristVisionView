@@ -6,142 +6,168 @@
              xmlns:local="clr-namespace:FirstVisionView"
              xmlns:toolcard ="clr-namespace:FirstVisionView.Card"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1600">
+             d:DesignHeight="800" d:DesignWidth="1600"
+             Background="#F5F5F5">
+    <!-- 给一个底色区分 -->
+
     <Grid>
         <Grid.ColumnDefinitions>
+            <!-- 左侧：参数卡片区域 -->
             <ColumnDefinition Width="1*"/>
+            <!-- 右侧：图像显示区域 -->
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
-        <!--参数区域,裁剪必须开，否则卡片会被拖出界面-->
-        <Border Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" IsHitTestVisible="True" ClipToBounds="True" >
+
+        <!-- ======================= 左侧：参数卡片区域 (无限画布) ======================= -->
+        <Border Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#EAEAEA" ClipToBounds="True">
             <Grid>
-                <Canvas RenderTransformOrigin="0.5,0.5" x:Name="ParamentCanvas" IsHitTestVisible="True"
-                        Background="Transparent"
-                        MouseLeftButtonDown="Canvas_MouseLeftButtonDown" 
-                        MouseLeftButtonUp="Canvas_MouseLeftButtonUp" 
-                        MouseMove="Canvas_MouseMove"  MouseRightButtonUp="Canvas_MouseRightButtonUp">
-                    <!--参数Card-->
-                    <!--右键添加Card-->
-                    <Popup 
-                        x:Name="AddCard"
-                        Width="Auto" 
-                        AllowsTransparency="True"
-                        Panel.ZIndex="1"
-                        Height="Auto" 
-                        IsOpen="False" 
-                        StaysOpen="False" 
-                        Placement="Mouse" >
-                        <Border Padding="15">
-                            <Border  Width="Auto" MinHeight="150" MinWidth="100" CornerRadius="18" Height="Auto" Style="{StaticResource BorderStyle}">
-                                <StackPanel>
-                                    <Button Content="添加Card" Click="AddNewCard" Background="Transparent" Style="{StaticResource MenuButtonStyle}"/>
-                                </StackPanel>
-                            </Border>
-                        </Border>
-                    </Popup>
-                    <Popup 
-                            x:Name="DeleteCard"
-                            Width="Auto" 
-                            AllowsTransparency="True"
-                            Panel.ZIndex="1"
-                            Height="Auto" 
-                            IsOpen="False" 
-                            StaysOpen="False" 
-                            Placement="Mouse" >
-                        <Border Padding="15">
-                            <Border  Width="100" CornerRadius="10" Height="Auto" Style="{StaticResource BorderStyle}">
-                                <StackPanel>
-                                    <Button Content="删除Card" Click="DeleCard" Background="Transparent" Style="{StaticResource MenuButtonStyle}"/>
-                                </StackPanel>
-                            </Border>
-                        </Border>
-                    </Popup>
-                    <!--参数Card2-->
+                <!-- 1. 引入 ScrollViewer，提供滚动条和视口支撑 -->
+                <!-- 事件绑定用于：滚轮缩放、右键平移 -->
+                <ScrollViewer x:Name="LeftScrollViewer"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto"
+                              CanContentScroll="True"
+                              PreviewMouseWheel="LeftScrollViewer_PreviewMouseWheel"
+                              PreviewMouseRightButtonDown="LeftScrollViewer_PreviewMouseRightButtonDown"
+                              PreviewMouseMove="LeftScrollViewer_PreviewMouseMove"
+                              PreviewMouseRightButtonUp="LeftScrollViewer_PreviewMouseRightButtonUp">
 
-                    <!--选项框放最后渲染，否则会显示在卡片下方，还要注意命中测试要关闭不要拦截鼠标事件-->
-                    <Rectangle x:Name="SelectionBox"
-                               Panel.ZIndex="1"
-                               Stroke="Gray"
-                               StrokeThickness="1"
-                               Fill="#33686879"
-                               IsHitTestVisible="False"
-                               Visibility="Collapsed">
-                    </Rectangle>
-                </Canvas>
+                    <!-- 2. 缩放载体 Grid -->
+                    <Grid x:Name="LeftTransformGrid" Background="Transparent"
+                          Width="3000" Height="3000">
+                        <!-- 给一个足够大的初始空间 -->
+
+                        <!-- 使用 LayoutTransform 实现缩放，自带滚动条联动 -->
+                        <Grid.LayoutTransform>
+                            <ScaleTransform x:Name="LeftCanvasScale" ScaleX="1" ScaleY="1"/>
+                        </Grid.LayoutTransform>
+
+                        <!-- 画布 -->
+                        <Canvas x:Name="ParamentCanvas" 
+                                IsHitTestVisible="True"
+                                Background="Transparent"
+                                MouseLeftButtonDown="Canvas_MouseLeftButtonDown" 
+                                MouseLeftButtonUp="Canvas_MouseLeftButtonUp" 
+                                MouseMove="Canvas_MouseMove"  
+                                MouseRightButtonUp="Canvas_MouseRightButtonUp">
+
+                            <!-- 选项框放最后渲染 防止被遮盖，注意鼠标命中-->
+                            <Rectangle x:Name="SelectionBox"
+                                       Panel.ZIndex="999"
+                                       Stroke="DodgerBlue"
+                                       StrokeThickness="1"
+                                       StrokeDashArray="4 2"
+                                       Fill="#330078D7"
+                                       IsHitTestVisible="False"
+                                       Visibility="Collapsed"/>
+                        </Canvas>
+                    </Grid>
+                </ScrollViewer>
+
+                <!-- 左下角显示缩放比例 (可选，体验更好) -->
+                <TextBlock x:Name="LeftZoomLevelText" Text="100%" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Foreground="Gray" IsHitTestVisible="False"/>
+
+                <!-- Popup 必须放在 ScrollViewer 外层，否则缩放时菜单会跟着变大变小 -->
+                <!-- 右键添加Card -->
+                <Popup x:Name="AddCard" AllowsTransparency="True" Panel.ZIndex="10" StaysOpen="False" Placement="Mouse">
+                    <Border Padding="15">
+                        <Border Width="Auto" MinHeight="150" MinWidth="100" CornerRadius="18" Background="White" Style="{StaticResource BorderStyle}">
+                            <StackPanel>
+                                <Button Content="添加Card" Click="AddNewCard" Background="Transparent" Style="{StaticResource MenuButtonStyle}"/>
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                </Popup>
+
+                <!-- 右键删除Card -->
+                <Popup x:Name="DeleteCard" AllowsTransparency="True" Panel.ZIndex="10" StaysOpen="False" Placement="Mouse">
+                    <Border Padding="15">
+                        <Border Width="100" CornerRadius="10" Background="White" Style="{StaticResource BorderStyle}">
+                            <StackPanel>
+                                <Button Content="删除Card" Click="DeleCard" Foreground="Red" Background="Transparent" Style="{StaticResource MenuButtonStyle}"/>
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                </Popup>
             </Grid>
-            
         </Border>
-        <!--右侧区域-->
-        <Grid Grid.Column="1" Grid.Row="1" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="19*"/>
-            </Grid.RowDefinitions>
-            <!--图像显示调整栏的底色-->
-            <Border Background="#FFFFFF"  BorderBrush="#FFFFFF" HorizontalAlignment="Stretch" >
-                <!-- 轻微垂直偏移 -->
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth="1"       
-                    BlurRadius="10"
-                    Color="#20000000"
-                    Opacity="0.3"/>
-                </Border.Effect>
-            </Border>
-            <!--图像栏布局-->
-            <!--图层选择列表-->
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,0">
-                <ComboBox x:Name="LayerSelection" Width="150" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
-                <ComboBox x:Name="CameraSelection"   Margin="30,0,0,0"  Width="100" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
-                <!--放大-->
-                <Button x:Name="Enlarge" Margin="20,0,0,0" Content="➕" FontSize="25" Foreground="Gray" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
-                <!--缩小-->
-                <Button x:Name="Reduce" Margin="20,0,0,0" Content="➖" FontSize="25" Foreground="Gray" local:ButtonHelp.CornerRadius="17.5"  Style="{StaticResource ButtonStyle}" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="60"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="R:" Grid.Column="1" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label x:Name="RValue" Content="255" Grid.Column="2"  HorizontalAlignment="Center" FontSize="20"/>
-                    <Label Content="G:"  Grid.Column="3" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label x:Name="GValue" Content="255"  Grid.Column="4" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label Content="B:" Grid.Column="5" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label x:Name="BValue" Content="255"  Grid.Column="6" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label Content="H:" Grid.Column="7" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label x:Name="HValue" Content="255" Grid.Column="8" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label Content="S:" Grid.Column="9" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label x:Name="SValue" Content="255"  Grid.Column="10" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label Content="V:" Grid.Column="11" HorizontalAlignment="Center" FontSize="20"/>
-                    <Label x:Name="VValue" Content="255"  Grid.Column="12" HorizontalAlignment="Center" FontSize="20"/>
-                </Grid>
 
-            </StackPanel>
-            <!--图像显示窗口-->
-            <Image x:Name="imgDisplay" Grid.Row="1" Grid.Column="0" Source="/Pictrue.jpg"
-                   Stretch="None">
-                <!--图像操作：旋转/平移/缩放-->
-                <Image.RenderTransform>
-                    <!--缩放组合-->
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="1" ScaleY="1"/>
-                        <TranslateTransform X="0" Y="0"/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
-            <!--ROI区域-->
-            <Canvas Grid.Row="1" Grid.Column="0" x:Name="ROI" Background="Transparent" IsHitTestVisible="True" RenderTransform="{Binding ElementName=imgDisplay,Path=RenderTransform}" />
+        <!-- ======================= 右侧：图像显示与工具区域 ======================= -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- 顶部工具栏高度自适应 -->
+                <RowDefinition Height="*"/>
+                <!-- 图像区域占据剩余全部 -->
+            </Grid.RowDefinitions>
+
+            <!-- 1. 顶部工具栏 -->
+            <Border Grid.Row="0" Background="#FFFFFF" HorizontalAlignment="Stretch" Padding="10,5">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="10" Color="#20000000" Opacity="0.3"/>
+                </Border.Effect>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <ComboBox x:Name="LayerSelection" Width="150" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
+                    <ComboBox x:Name="CameraSelection" Margin="30,0,0,0" Width="100" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
+
+                    <Button x:Name="Enlarge" Margin="20,0,0,0" Content="➕" FontSize="20" Foreground="Gray" Style="{StaticResource ButtonStyle}" />
+                    <Button x:Name="Reduce" Margin="10,0,0,0" Content="➖" FontSize="20" Foreground="Gray" Style="{StaticResource ButtonStyle}" />
+
+                    <!-- RGB/HSV 显示区 -->
+                    <Grid Margin="30,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="R:" Grid.Column="0" FontSize="16" VerticalAlignment="Center"/>
+                        <Label x:Name="RValue" Content="255" Grid.Column="1" FontSize="16" VerticalAlignment="Center"/>
+                        <Label Content="G:" Grid.Column="2" FontSize="16" VerticalAlignment="Center"/>
+                        <Label x:Name="GValue" Content="255" Grid.Column="3" FontSize="16" VerticalAlignment="Center"/>
+                        <Label Content="B:" Grid.Column="4" FontSize="16" VerticalAlignment="Center"/>
+                        <Label x:Name="BValue" Content="255" Grid.Column="5" FontSize="16" VerticalAlignment="Center"/>
+                        <Label Content="H:" Grid.Column="6" FontSize="16" VerticalAlignment="Center"/>
+                        <Label x:Name="HValue" Content="255" Grid.Column="7" FontSize="16" VerticalAlignment="Center"/>
+                        <Label Content="S:" Grid.Column="8" FontSize="16" VerticalAlignment="Center"/>
+                        <Label x:Name="SValue" Content="255" Grid.Column="9" FontSize="16" VerticalAlignment="Center"/>
+                        <Label Content="V:" Grid.Column="10" FontSize="16" VerticalAlignment="Center"/>
+                        <Label x:Name="VValue" Content="255" Grid.Column="11" FontSize="16" VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- 2. 图像显示与 ROI 区域 -->
+            <!-- 外层加一个 Grid 并设置 ClipToBounds，防止图像放大后跑出版面 -->
+            <Grid Grid.Row="1" ClipToBounds="True" Background="#2D2D30">
+                <!-- 机器视觉习惯用深灰色底看图 -->
+
+                <!-- RenderOptions.BitmapScalingMode="NearestNeighbor" -->
+                <!-- 作用：当图片被无限放大时，显示为一个一个的方块像素，绝对不会被模糊化！对查像素非常重要 -->
+                <Image x:Name="imgDisplay" Source="/Pictrue.jpg" Stretch="None"
+                       RenderOptions.BitmapScalingMode="NearestNeighbor"
+                       RenderOptions.EdgeMode="Aliased">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            <TranslateTransform X="0" Y="0"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+
+                <!-- ROI 区域，依然共享 Image 的变换矩阵 -->
+                <Canvas x:Name="ROI" Background="Transparent" IsHitTestVisible="True" 
+                        RenderTransform="{Binding ElementName=imgDisplay, Path=RenderTransform}" />
+            </Grid>
         </Grid>
-        
     </Grid>
 </UserControl>
