@@ -23,9 +23,9 @@ namespace FirstVisionView
     /// <summary>
     /// _.xaml 的交互逻辑
     /// </summary>
-    public partial class DatePage : UserControl
+    public partial class DataPage : UserControl
     {
-        public DatePage()
+        public DataPage()
         {
             InitializeComponent();
             //绘制图标

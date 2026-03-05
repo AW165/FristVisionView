@@ -9,6 +9,8 @@
              d:DesignHeight="800" d:DesignWidth="1600"
              Background="#F5F5F5">
     <!-- 给一个底色区分 -->
+    
+
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -64,8 +66,8 @@
                     </Grid>
                 </ScrollViewer>
 
-                <!-- 左下角显示缩放比例 (可选，体验更好) -->
-                <TextBlock x:Name="LeftZoomLevelText" Text="100%" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Foreground="Gray" IsHitTestVisible="False"/>
+                <!-- 左下角显示缩放比例 -->
+                <TextBlock x:Name="LeftZoomLevelText" Text="100%" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,20,10,25" Foreground="Gray" IsHitTestVisible="False"/>
 
                 <!-- Popup 必须放在 ScrollViewer 外层，否则缩放时菜单会跟着变大变小 -->
                 <!-- 右键添加Card -->
@@ -102,17 +104,17 @@
             </Grid.RowDefinitions>
 
             <!-- 1. 顶部工具栏 -->
-            <Border Grid.Row="0" Background="#FFFFFF" HorizontalAlignment="Stretch" Padding="10,5">
+            <Border Grid.Row="0" Background="#EAEAEA" BorderThickness="0" HorizontalAlignment="Stretch" Padding="10,5">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" BlurRadius="10" Color="#20000000" Opacity="0.3"/>
                 </Border.Effect>
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <ComboBox x:Name="LayerSelection" Width="150" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
-                    <ComboBox x:Name="CameraSelection" Margin="30,0,0,0" Width="100" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
+                    <ComboBox x:Name="LayerSelection" Width="150" MaxHeight="35" Background="#FFFFFF" Style="{StaticResource ComboboxStyle}"/>
+                    <ComboBox x:Name="CameraSelection" Margin="30,0,0,0" Width="100" Background="#FFFFFF" MaxHeight="35" Style="{StaticResource ComboboxStyle}"/>
 
-                    <Button x:Name="Enlarge" Margin="20,0,0,0" Content="➕" FontSize="20" Foreground="Gray" Style="{StaticResource ButtonStyle}" />
-                    <Button x:Name="Reduce" Margin="10,0,0,0" Content="➖" FontSize="20" Foreground="Gray" Style="{StaticResource ButtonStyle}" />
+                    <Button x:Name="Enlarge" Margin="20,0,0,0" Content="➕" FontSize="20" Background="#FFFFFF" Foreground="Gray" Style="{StaticResource ButtonStyle}" />
+                    <Button x:Name="Reduce" Margin="10,0,0,0" Content="➖" FontSize="20" Background="#FFFFFF" Foreground="Gray" Style="{StaticResource ButtonStyle}" />
 
                     <!-- RGB/HSV 显示区 -->
                     <Grid Margin="30,0,0,0">

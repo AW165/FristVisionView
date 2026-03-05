@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FirstVisionView"
-        
+        xmlns:vm="clr-namespace:FirstVisionView.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="1050" MinWidth="1680" WindowState="Maximized" Background="#F5F5F7" >
-
+    <Window.DataContext>
+        <vm:MainViewModels/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
 
@@ -18,9 +20,9 @@
         </Grid.RowDefinitions>
         <!--工具栏-->
         <StackPanel  VerticalAlignment="Top" Height="50"  Grid.Column="0" Grid.Row="0"   Orientation="Horizontal" Background="#FFECE8E8">
-            <Button x:Name="File" Content="文件" Width="75" Height="23" Margin="10,10,0,10"   BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
-            <Button x:Name="Tools" Content="工具"  Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
-            <Button x:Name="View" Content="视图" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="File" Content="文件" CommandParameter="File" Command="{Binding SwitchOpenPopupCommand}" Width="75" Height="23" Margin="10,10,0,10"   BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="Tools" Content="工具" CommandParameter="Tool"  Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="View" Content="视图" CommandParameter="View" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
         <!--左侧面板-->
         <Grid Grid.Row="1">
@@ -42,13 +44,13 @@
                 </Border.Effect>
 
                 <StackPanel  Grid.Row="1" Grid.RowSpan="2" Background="Transparent" >
-                    <Button Content="🏠" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}" Click="Button_Click_1"/>
-                    <Button  Content="🧾" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
-                    <Button  Content="⚙" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}" Click="Setting_Click"/>
+                    <Button Content="🏠" CommandParameter="Adjust" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}" Command="{Binding SwitchPageCommand}"/>
+                    <Button  Content="🧾"  CommandParameter="Data" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}" Command="{Binding SwitchPageCommand}"/>
+                    <Button  Content="⚙" CommandParameter="Setting" HorizontalAlignment="Center" FontSize="16" Margin="0,20,0,20" Style="{StaticResource ButtonStyle}" Command="{Binding SwitchPageCommand}"/>
                 </StackPanel>
             </Border>
             <!--Page切换-->
-            <ContentControl x:Name="Page" Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <ContentControl x:Name="Page" Content="{Binding CurrentPage}" Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
 
 
 
@@ -56,39 +58,26 @@
 
         </Grid>
 
-
-        <Popup x:Name="ToolsPopup" 
-               PlacementTarget="{Binding ElementName=Tools}"
+        <!--文件菜单-->
+        <Popup x:Name="FilePopup" 
+               PlacementTarget="{Binding ElementName=File}"
                Placement="Bottom"
-             
+               IsOpen="{Binding FilePopup}"
+               
                AllowsTransparency="True"
                StaysOpen="False">
             <Border Background="#E5E5E5" BorderBrush="#D0D0D0" BorderThickness="1" MaxWidth="200" Width="90" CornerRadius="8">
                 <StackPanel>
-                    <Button Content="新建项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
-                    <Button Content="打开项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
-                    <Button Content="保存项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
-                    <Button  Content="另存为" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
-                    <Button  Content="退出" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button Content="新建项目" CommandParameter="NewProject" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button Content="打开项目" CommandParameter="OpenProject" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button Content="保存项目" CommandParameter="SevaProject" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button  Content="另存为"  CommandParameter="SaveAsProject" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button  Content="退出" CommandParameter="Exit" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
                 </StackPanel>
             </Border>
         </Popup>
-        <!--文件菜单-->
-        <Popup x:Name="FilePopup"
-PlacementTarget="{Binding ElementName=File}"
-Placement="Bottom"
-AllowsTransparency="True"
-StaysOpen="False">
-            <Border Background="#E5E5E5" BorderBrush="#D0D0D0" BorderThickness="1" MaxWidth="200" Width="90" CornerRadius="8">
-                <StackPanel>
-                    <Button Content="新建项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
-                    <Button Content="打开项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
-                    <Button Content="保存项目" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
-                    <Button  Content="另存为" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
-                    <Button  Content="退出" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
-                </StackPanel>
-            </Border>
-        </Popup>
+
+
     </Grid>
 
 
