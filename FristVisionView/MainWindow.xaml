@@ -21,8 +21,8 @@
         <!--工具栏-->
         <StackPanel  VerticalAlignment="Top" Height="50"  Grid.Column="0" Grid.Row="0"   Orientation="Horizontal" Background="#FFECE8E8">
             <Button x:Name="File" Content="文件" CommandParameter="File" Command="{Binding SwitchOpenPopupCommand}" Width="75" Height="23" Margin="10,10,0,10"   BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
-            <Button x:Name="Tools" Content="工具" CommandParameter="Tool"  Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
-            <Button x:Name="View" Content="视图" CommandParameter="View" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="Tools" Content="工具" CommandParameter="Tool" Command="{Binding SwitchOpenPopupCommand}" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="View" Content="视图" CommandParameter="View" Command="{Binding SwitchOpenPopupCommand}" Width="75" Height="23" Margin="30,10,0,10" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
         <!--左侧面板-->
         <Grid Grid.Row="1">
@@ -76,7 +76,24 @@
                 </StackPanel>
             </Border>
         </Popup>
-
+        <!--Tool菜单-->
+        <Popup x:Name="ToolPopup" 
+          PlacementTarget="{Binding ElementName=Tools}"
+          Placement="Bottom"
+          IsOpen="{Binding ToolPopup}"
+          
+          AllowsTransparency="True"
+          StaysOpen="False">
+            <Border Background="#E5E5E5" BorderBrush="#D0D0D0" BorderThickness="1" MaxWidth="200" Width="90" CornerRadius="8">
+                <StackPanel>
+                    <Button Content="新建项目" CommandParameter="NewProject" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button Content="打开项目" CommandParameter="OpenProject" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button Content="保存项目" CommandParameter="SevaProject" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button  Content="另存为"  CommandParameter="SaveAsProject" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                    <Button  Content="退出" CommandParameter="Exit" Width="100" Height="30" Style="{StaticResource MenuButtonStyle}"/>
+                </StackPanel>
+            </Border>
+        </Popup>
 
     </Grid>
 

@@ -17,11 +17,17 @@ namespace FirstVisionView.ViewModels
         private readonly SettingPage _SettingPage = new();
         [ObservableProperty]
         private bool _FilePopup = false;
+        [ObservableProperty]
+        private bool _ToolPopup = false;
 
+        [ObservableProperty]
+        private bool _ViewPopup = false;
         [ObservableProperty]
         private UserControl _CurrentPage;
 
-        public  MainViewModels()
+
+
+        public MainViewModels()
         {
             _CurrentPage = _AdjustPage;
         }
@@ -45,15 +51,15 @@ namespace FirstVisionView.ViewModels
         [RelayCommand]
         private void SwitchOpenPopup(string? propertyName = null)
         {
+           FilePopup = false;
+           ToolPopup = false;
+           ViewPopup = false;
             switch (propertyName)
             {
-                case "File":
-                    FilePopup = true;
-                    break;
+                case "File": FilePopup = true; break;
+                case "Tool": ToolPopup = true; break;
+                case "View": ViewPopup = true; break;
             }
-
-
-
         }
     }
 }
