@@ -15,15 +15,15 @@ namespace FirstVisionView.ViewModels
         private readonly AdjustPage _AdjustPage = new();
         private readonly DataPage _DataPage = new();
         private readonly SettingPage _SettingPage = new();
-        [ObservableProperty]
-        private bool _FilePopup = false;
-        [ObservableProperty]
-        private bool _ToolPopup = false;
+        [ObservableProperty] private bool _FilePopup = false;
+        
+        [ObservableProperty] private bool _ToolPopup = false;
 
-        [ObservableProperty]
-        private bool _ViewPopup = false;
-        [ObservableProperty]
-        private UserControl _CurrentPage;
+       
+        [ObservableProperty] private bool _ViewPopup = false;
+        
+        [ObservableProperty] private UserControl _CurrentPage;
+        [ObservableProperty] private AdjustViewModel _adjustVM = new();
 
 
 
