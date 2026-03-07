@@ -6,7 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
-using FirstVisionView.Card; // 引用自定义卡片控件
+using FirstVisionView.Card;
+using WinRT; // 引用自定义卡片控件
 
 namespace FirstVisionView
 {
@@ -72,11 +73,11 @@ namespace FirstVisionView
         // [缩放] 当前画布的缩放倍率（1.0 = 100%）
         private double _currentZoom = 1.0;
 
-        // [缩放] 允许缩小的极限（0.2 = 20%）
-        private double _minZoom = 0.2;
+        // [缩放] 允许缩小的极限（0.02 = 2%）
+        private double _minZoom = 0.02;
 
         // [缩放] 允许放大的极限（5.0 = 500%）
-        private double _maxZoom = 5.0;
+        private double _maxZoom = 3.0;
 
         // [缩放] 滚轮每滚一格的缩放系数（1.15代表每次变化15%）
         private double _zoomFactor = 1.15;
@@ -384,8 +385,12 @@ namespace FirstVisionView
             _hasMoved = false;
 
             // 记录起点坐标
-            _DragStartMousePoint = e.GetPosition(ParamentCanvas);
-
+            var cardModel = card.DataContext as FirstVisionView.DataModel.CardDataModel;
+            if (cardModel != null)
+            {
+                _DragStartMousePoint.X = cardModel.X;
+                _DragStartMousePoint.Y = cardModel.Y;
+            }
             // 备份所有选中卡片坐标，以实现相对位移计算
             RecordDragStartPositions();
 
@@ -446,9 +451,14 @@ namespace FirstVisionView
             {
                 if (_DragStartPositions.ContainsKey(card))
                 {
-                    Point originPos = _DragStartPositions[card];
-                    Canvas.SetLeft(card, originPos.X + dx);
-                    Canvas.SetTop(card, originPos.Y + dy);
+                    var cardModel = card.DataContext as FirstVisionView.DataModel.CardDataModel;
+                    if (cardModel != null)
+                    {
+                        Point originPos = _DragStartPositions[card];
+                        cardModel.X = originPos.X + dx;
+                        cardModel.Y = originPos.Y + dy;
+                    }
+                    
                 }
             }
         }

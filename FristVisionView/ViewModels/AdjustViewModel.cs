@@ -16,8 +16,7 @@ namespace FirstVisionView.ViewModels
     {
         [ObservableProperty]
         private ObservableCollection<CardDataModel> _allCards = new();
-        [ObservableProperty]
-        private ObservableCollection<CardDataModel> _selectedCards = new();
+
         [RelayCommand]
         private void AddCard(string? cardName = null)
         {
